@@ -1,0 +1,39 @@
+{
+  "_readme": "Each key below fills one slot on the page. Put a full URL (https://...) or a path relative to index.html (e.g. images/edgeos.jpg) in src. Leave src empty to show the placeholder. focus sets which part of the image stays in frame when cropped (CSS object-position, e.g. '50% 20%' keeps the top). video is optional and only used by the showreel slot.",
+
+  "hero": {
+    "src": "",
+    "alt": "Portrait of Nikhil Srinath",
+    "focus": "50% 25%",
+    "ratio": "4:5 portrait, at least 900px wide"
+  },
+
+  "edgeos": {
+    "src": "",
+    "alt": "EdgeOS workspace with the AI co-pilot panel open",
+    "focus": "50% 50%",
+    "ratio": "16:10 landscape, at least 1600px wide"
+  },
+
+  "qbitio": {
+    "src": "",
+    "alt": "Qbitio Instagram content",
+    "focus": "50% 50%",
+    "ratio": "16:10 landscape, at least 1600px wide"
+  },
+
+  "catalysis23": {
+    "src": "",
+    "alt": "Catalysis23 event with founders on stage",
+    "focus": "50% 50%",
+    "ratio": "16:10 landscape, at least 1600px wide"
+  },
+
+  "showreel": {
+    "src": "",
+    "video": "",
+    "alt": "Frames from Nikhil Srinath's showreel",
+    "focus": "50% 50%",
+    "ratio": "16:9 landscape. src is the still/poster; video (mp4) plays muted on loop if set"
+  }
+}
