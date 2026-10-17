@@ -145,17 +145,24 @@ html.morph .sec,html.morph .hero,html.morph .hero-name-sec{background:transparen
 .roll>span::after{content:attr(data-text);position:absolute;left:0;top:100%}
 .roll:hover>span,.roll:focus-visible>span{transform:translateY(-100%)}
 .nav-tc{font-variant-numeric:tabular-nums;min-width:19ch;text-align:right}
-.menu-btn{display:none;width:44px;height:44px;position:relative}
-.menu-btn i{position:absolute;left:10px;right:10px;height:1.5px;background:currentColor;transition:transform .5s var(--ease)}
-.menu-btn i:first-child{top:18px}.menu-btn i:nth-child(2){top:25px}
-.menu-open .menu-btn i:first-child{transform:translateY(3.5px) rotate(45deg)}
-.menu-open .menu-btn i:nth-child(2){transform:translateY(-3.5px) rotate(-45deg)}
-.menu{position:fixed;inset:0;z-index:85;background:var(--ink);color:var(--paper);display:flex;flex-direction:column;justify-content:flex-end;padding:calc(90px + env(safe-area-inset-top,0px)) var(--gut) calc(28px + env(safe-area-inset-bottom,0px));visibility:hidden;clip-path:inset(0 0 100% 0);transition:clip-path .8s var(--ease),visibility 0s .8s}
-.menu-open .menu{visibility:visible;clip-path:inset(0 0 0 0);transition:clip-path .8s var(--ease)}
-.menu-list{display:grid;gap:4px}
-.menu-link{display:flex;align-items:baseline;gap:14px;overflow:hidden;border-top:1px solid rgba(235,234,230,.16);padding-top:6px}
-.menu-link span{display:block;font-weight:800;font-stretch:72%;font-size:clamp(44px,13vw,96px);line-height:.9;text-transform:uppercase;letter-spacing:-.03em}
-.menu-foot{display:flex;justify-content:space-between;margin-top:28px;gap:12px}
+.menu-btn{display:none;height:44px;padding:0 10px;margin-right:-10px}
+.menu-btn .mb{display:grid;height:1.5em;overflow:hidden}
+.menu-btn .mb span{grid-area:1/1;transition:transform .6s var(--ease)}
+.menu-btn .mb span+span{transform:translateY(100%)}
+.menu-open .menu-btn .mb span:first-child{transform:translateY(-100%)}
+.menu-open .menu-btn .mb span+span{transform:none}
+.menu{position:fixed;inset:0;z-index:85;background:var(--ink);color:var(--paper);display:flex;flex-direction:column;justify-content:space-between;gap:40px;padding:calc(104px + env(safe-area-inset-top,0px)) var(--gut) calc(24px + env(safe-area-inset-bottom,0px));overflow-y:auto;visibility:hidden;opacity:0;transition:opacity .45s var(--ease),visibility 0s .45s}
+.menu-open .menu{visibility:visible;opacity:1;transition:opacity .45s var(--ease)}
+.menu-list{display:flex;flex-direction:column}
+.menu-link{display:flex;align-items:baseline;justify-content:space-between;gap:16px;padding:10px 0;transition:opacity .35s var(--ease)}
+.menu-link span{font-weight:500;font-size:clamp(32px,9.5vw,46px);line-height:1.05;letter-spacing:-.03em}
+.menu-link em{opacity:.36;display:inline-flex;align-items:center;gap:8px}
+.menu-link.is-current em{opacity:1}
+.menu-link.is-current em::before{content:"";width:6px;height:6px;border-radius:50%;background:var(--signal)}
+.menu-list:hover .menu-link:not(:hover){opacity:.32}
+.menu-foot{display:grid;gap:18px;padding-top:20px;border-top:1px solid rgba(235,234,230,.14)}
+.menu-mail{font-size:17px;letter-spacing:-.01em;justify-self:start}
+.menu-meta{display:flex;justify-content:space-between;gap:12px;opacity:.42}
 
 /* hero */
 .hero{position:relative;height:100vh;height:100svh;min-height:480px;display:flex;flex-direction:column;justify-content:center;padding-top:calc(72px + env(safe-area-inset-top,0px));padding-bottom:calc(48px + env(safe-area-inset-bottom,0px));overflow:hidden}
@@ -504,19 +511,22 @@ html.morph .blocks i.on{background:var(--signal)}
     <a href="#contact" class="roll"><span data-text="Contact">Contact</span></a>
   </nav>
   <span class="nav-tc mono" id="tc">TC 00:00:00:00</span>
-  <button class="menu-btn" id="menuBtn" aria-expanded="false" aria-controls="menu"><i></i><i></i><span class="sr">Menu</span></button>
+  <button class="menu-btn mono" id="menuBtn" type="button" aria-expanded="false" aria-controls="menu"><span class="mb" aria-hidden="true"><span>Menu</span><span>Close</span></span><span class="sr">Toggle menu</span></button>
 </header>
 
 <div class="menu" id="menu" aria-hidden="true" inert>
   <nav class="menu-list" aria-label="Menu">
-    <a class="menu-link" href="#work"><em class="mono">01</em><span>Work</span></a>
-    <a class="menu-link" href="#qbitio"><em class="mono">02</em><span>Qbitio</span></a>
-    <a class="menu-link" href="#lab"><em class="mono">03</em><span>Creative lab</span></a>
-    <a class="menu-link" href="#edgeos"><em class="mono">04</em><span>EdgeOS</span></a>
-    <a class="menu-link" href="#catalysis"><em class="mono">05</em><span>Catalysis23</span></a>
-    <a class="menu-link" href="#contact"><em class="mono">06</em><span>Contact</span></a>
+    <a class="menu-link" href="#work"><span>Work</span><em class="mono">01</em></a>
+    <a class="menu-link" href="#qbitio"><span>Qbitio</span><em class="mono">02</em></a>
+    <a class="menu-link" href="#lab"><span>Creative lab</span><em class="mono">03</em></a>
+    <a class="menu-link" href="#edgeos"><span>EdgeOS</span><em class="mono">04</em></a>
+    <a class="menu-link" href="#catalysis"><span>Catalysis23</span><em class="mono">05</em></a>
+    <a class="menu-link" href="#about"><span>About</span><em class="mono">06</em></a>
   </nav>
-  <div class="menu-foot mono"><span>India · <span data-clock>--:--</span> IST</span><span>Nikhil Srinath</span></div>
+  <div class="menu-foot">
+    <a class="menu-mail" href="mailto:nikhilsrinath7@gmail.com">nikhilsrinath7@gmail.com</a>
+    <div class="menu-meta mono"><span>India · <span data-clock>--:--</span> IST</span><span>Nikhil Srinath</span></div>
+  </div>
 </div>
 
 <main>
@@ -1209,7 +1219,15 @@ html.morph .blocks i.on{background:var(--signal)}
     menu.setAttribute('aria-hidden', String(!open));
     if (open) menu.removeAttribute('inert'); else menu.setAttribute('inert', '');
     if (lenis) { if (open) lenis.stop(); else lenis.start(); }
-    if (open && anim) G.fromTo($$('.menu-link span', menu), { yPercent: 110 }, { yPercent: 0, duration: 1, ease: 'expo.out', stagger: .05, delay: .15 });
+    if (!open) return;
+    var cur = null;
+    $$('.menu-link', menu).forEach(function(a){
+      var t = document.querySelector(a.getAttribute('href'));
+      a.classList.remove('is-current');
+      if (t && t.getBoundingClientRect().top < innerHeight * .4) cur = a;
+    });
+    if (cur) cur.classList.add('is-current');
+    if (anim) G.fromTo($$('.menu-link, .menu-foot', menu), { y: 18, opacity: 0 }, { y: 0, opacity: 1, duration: .9, ease: 'expo.out', stagger: .045, delay: .1, clearProps: 'transform,opacity' });
   }
   menuBtn.addEventListener('click', function(){ setMenu(!root.classList.contains('menu-open')); });
   document.addEventListener('keydown', function(e){ if (e.key === 'Escape' && root.classList.contains('menu-open')) setMenu(false); });
