@@ -168,11 +168,21 @@ html.morph .sec,html.morph .hero,html.morph .hero-name-sec{background:transparen
 .hero-glow{position:absolute;inset:0;background:radial-gradient(70% 55% at 72% 18%,rgba(235,234,230,.08),transparent 65%);pointer-events:none}
 .hero-meta{display:flex;flex-wrap:wrap;justify-content:center;gap:12px 48px;margin-bottom:clamp(20px,4svh,48px);opacity:.7;position:relative;z-index:2}
 .hero-main{position:relative;z-index:2}
-.hero-top{position:relative;z-index:2;row-gap:32px}
-.hero-copy{grid-column:1/13;display:grid;justify-items:center;gap:clamp(28px,3vw,44px);min-width:0;align-self:center;text-align:center}
-.hero-h{max-width:24ch;font-weight:400;font-size:clamp(40px,min(6.2vw,12svh),112px);line-height:1;letter-spacing:-.04em;text-wrap:balance}
-.hero-h em{font-family:var(--f-serif);font-style:italic;font-weight:300;letter-spacing:-.02em}
-.hero-ctas{display:flex;flex-wrap:wrap;justify-content:center;gap:12px}
+.hero-top{position:relative;z-index:2;align-items:stretch}
+.hero-copy{grid-column:1/8;grid-row:1;display:flex;flex-direction:column;justify-content:space-between;gap:clamp(18px,3svh,32px);padding-bottom:clamp(4px,1.5svh,20px);min-width:0}
+.hero-h{font-weight:300;font-size:clamp(40px,min(6vw,11svh),112px);line-height:1.02;letter-spacing:-.045em;max-width:12ch}
+.hero-who{font-size:clamp(15px,1.15vw,18px);letter-spacing:-.01em;line-height:1}
+.hero-end{display:grid;gap:clamp(18px,3svh,32px)}
+.hero-sub{font-size:clamp(14px,1.1vw,17px);line-height:1.5;opacity:.55;max-width:44ch}
+.hero-photo{grid-column:8/13;grid-row:1;margin:0;position:relative;height:min(78svh,820px);overflow:hidden;background:#1a1a1c}
+.hero-photo img{width:100%;height:100%;object-fit:cover;object-position:50% 40%;display:block;filter:grayscale(1) contrast(1.08);transition:filter 1.2s var(--ease),transform 1.6s var(--ease)}
+.hero-photo:hover img{filter:grayscale(0);transform:scale(1.03)}
+@media (max-width:760px){
+  .hero{height:auto;min-height:100svh}
+  .hero-photo{grid-column:1/13;height:56svh}
+  .hero-copy{grid-column:1/13;grid-row:2;margin-top:28px;justify-content:flex-start}
+  .hero-h{font-size:clamp(36px,10.5vw,56px)}
+}
 .hero-name-sec{position:relative;background:var(--ink);color:var(--paper);padding-block:clamp(48px,7vw,110px) 22px;overflow:hidden}
 .hero-name-wrap{position:relative;z-index:2}
 .hero-name{font-weight:800;font-stretch:125%;font-size:clamp(48px,13vw,240px);line-height:.86;letter-spacing:-.03em;text-transform:uppercase}
@@ -243,7 +253,7 @@ html.morph .marquee{background:transparent;color:inherit}
 .trio{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:var(--cg);margin-top:var(--cg)}
 .trio .frame{aspect-ratio:3/4;width:100%}
 .rows{margin-top:clamp(70px,9vw,130px);border-bottom:1px solid rgba(128,128,128,.35);border-bottom-color:color-mix(in srgb,currentColor 22%,transparent)}
-.row{position:relative;display:grid;grid-template-columns:60px minmax(0,1.3fr) minmax(0,1fr) auto;column-gap:var(--cg);align-items:center;padding-block:clamp(16px,2.2vw,30px);border-top:1px solid rgba(128,128,128,.35);border-top-color:color-mix(in srgb,currentColor 22%,transparent);transition:opacity .5s var(--ease)}
+.row{position:relative;display:grid;grid-template-columns:60px minmax(0,1.3fr) minmax(0,1fr);column-gap:var(--cg);align-items:center;padding-block:clamp(16px,2.2vw,30px);border-top:1px solid rgba(128,128,128,.35);border-top-color:color-mix(in srgb,currentColor 22%,transparent);transition:opacity .5s var(--ease)}
 .rows:hover .row:not(:hover){opacity:.28}
 .row-t{font-weight:800;font-stretch:72%;font-size:clamp(36px,5.6vw,100px);line-height:.88;letter-spacing:-.03em;text-transform:uppercase;transition:transform .7s var(--ease)}
 .row:hover .row-t{transform:translateX(clamp(10px,1.6vw,28px))}
@@ -379,7 +389,7 @@ html.morph .marquee{background:transparent;color:inherit}
   .wb .wb-text{grid-column:8/13}
   .wb .wt{margin-left:-46%}
   .stat,.owned{grid-column:1/13}
-  .row{grid-template-columns:44px minmax(0,1fr) 72px}
+  .row{grid-template-columns:44px minmax(0,1fr)}
   .row-d{grid-column:2/3;grid-row:2;margin-top:10px}
   .row .arrow-c{display:none}
   .row-thumb{display:block;grid-column:3;grid-row:1/3}
@@ -414,7 +424,7 @@ html.morph .marquee{background:transparent;color:inherit}
   .trio{grid-auto-flow:column;grid-template-columns:none;grid-auto-columns:72%;overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:none;margin-inline:calc(var(--gut) * -1);padding-inline:var(--gut)}
   .trio::-webkit-scrollbar{display:none}
   .trio figure{scroll-snap-align:center}
-  .row{grid-template-columns:28px minmax(0,1fr) 64px}
+  .row{grid-template-columns:28px minmax(0,1fr)}
   .row-thumb{width:64px}
   .ep{grid-template-columns:52px minmax(0,1fr) auto;padding-inline:4px}
   .portrait{grid-column:1/13;justify-self:center;width:min(80vw,360px)}
@@ -494,24 +504,18 @@ html.morph .marquee{background:transparent;color:inherit}
 <main>
 <!-- HERO -->
 <section class="hero" id="top" data-mode="ink">
-  <div class="hero-glow"></div>
   <div class="wrap hero-main">
-    <ul class="hero-meta mono">
-      <li class="h-in">Portfolio 2026</li>
-      <li class="h-in">Founder &amp; visual storyteller</li>
-      <li class="h-in">India · <span data-clock>--:--</span> IST</li>
-    </ul>
     <div class="grid12 hero-top">
       <div class="hero-copy">
-        <h1 class="hero-h" data-split="intro"><span class="dim">I build things,</span> <em>tell stories,</em> and help ideas get noticed.</h1>
-        <div class="hero-ctas h-in">
-          <a class="btn btn--solid" href="#work" data-magnetic>Explore my work <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
-          <a class="btn" href="#contact" data-magnetic>Let’s connect <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+        <p class="hero-who h-in">Nikhil Srinath</p>
+        <div class="hero-end">
+          <h1 class="hero-h" data-split="intro">I build things and tell their stories.</h1>
+          <p class="hero-sub h-in">Founder and visual storyteller, based in India.</p>
         </div>
       </div>
+      <figure class="hero-photo"><img src="02.jpeg" alt="Nikhil Srinath in a navy suit against a steel shutter" width="720" height="1280" fetchpriority="high"></figure>
     </div>
   </div>
-
 </section>
 
 <!-- NAME -->
@@ -679,23 +683,15 @@ html.morph .marquee{background:transparent;color:inherit}
     <ul class="rows" id="rows">
       <li class="row" data-fl="0" data-name="Video editing">
         <span class="mono">A</span><h3 class="row-t">Video editing</h3><p class="row-d mono">Reels · Founder videos · Recaps</p>
-        <div class="row-thumb frame" data-gen="beam" data-seed="14"><div class="art"><div class="art-in"></div></div></div>
-        <span class="arrow-c" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
       </li>
       <li class="row" data-fl="1" data-name="Motion graphics">
         <span class="mono">B</span><h3 class="row-t">Motion graphics</h3><p class="row-d mono">Type · Transitions · Compositing</p>
-        <div class="row-thumb frame" data-gen="wave" data-seed="22"><div class="art"><div class="art-in"></div></div></div>
-        <span class="arrow-c" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
       </li>
       <li class="row" data-fl="2" data-name="YouTube animation">
         <span class="mono">C</span><h3 class="row-t">YouTube animation</h3><p class="row-d mono">Explainers · Documentary · Narrative</p>
-        <div class="row-thumb frame" data-gen="city" data-seed="31"><div class="art"><div class="art-in"></div></div></div>
-        <span class="arrow-c" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
       </li>
       <li class="row" data-fl="3" data-name="Experiments">
         <span class="mono">D</span><h3 class="row-t">Experiments</h3><p class="row-d mono">Hooks · Title tests · Storyboards</p>
-        <div class="row-thumb frame" data-gen="bokeh" data-seed="19"><div class="art"><div class="art-in"></div></div></div>
-        <span class="arrow-c" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
       </li>
     </ul>
   </div>
@@ -852,7 +848,7 @@ html.morph .marquee{background:transparent;color:inherit}
 
   $$('[data-link]').forEach(function(a){
     var u = LINKS[a.getAttribute('data-link')];
-    if (u) { a.href = u; a.target = '_blank'; a.rel = 'noopener'; }
+    if (u) { a.href = u; a.target = '_blank'; a.rel = 'noopener'; a.hidden = false; }
   });
 
   /* ===== generated cinematic imagery (replaced by real media when data-img / data-video is set) ===== */
@@ -1233,7 +1229,9 @@ html.morph .marquee{background:transparent;color:inherit}
     fit(); paintAll(); ST.refresh();
     var tl = G.timeline();
     tl.to(loader, { yPercent: -100, duration: 1.1, ease: 'expo.inOut', onComplete: function(){ loader.remove(); } })
-      .from('.hero-h .wi', { yPercent: 115, duration: 1.1, ease: 'expo.out', stagger: .03 }, '-=.5')
+      .from('.hero-photo', { clipPath: 'inset(100% 0 0 0)', duration: 1.4, ease: 'expo.inOut' }, '-=.7')
+      .from('.hero-photo img', { scale: 1.25, duration: 1.8, ease: 'expo.out' }, '<')
+      .from('.hero-h .wi', { yPercent: 115, duration: 1.1, ease: 'expo.out', stagger: .03 }, '-=1.1')
       .from('.h-in', { y: 20, opacity: 0, duration: 1, ease: 'expo.out', stagger: .07 }, '-=.95');
     G.timeline({ scrollTrigger: { trigger: '.hero-name-sec', start: 'top 75%', once: true } })
       .from('.hero-name .ch', { yPercent: 110, duration: 1.3, ease: 'expo.out', stagger: .035 })
