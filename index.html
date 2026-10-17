@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Nikhil Srinath</title>
-<meta name="description" content="Founder and visual storyteller working across startups, content, video and community.">
+<meta name="description" content="Founder and CEO of Qbitio. Building companies and telling their stories across product, content and video.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,100..900&family=IBM+Plex+Mono:wght@400;500&family=Newsreader:ital,opsz,wght@0,6..72,300..600;1,6..72,300..600&display=swap">
@@ -114,11 +114,6 @@ html.morph .sec,html.morph .hero,html.morph .hero-name-sec{background:transparen
 .frame .vid,.frame .img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:1}
 .cap{display:flex;justify-content:space-between;gap:12px;margin-top:12px}
 
-/* loader */
-.loader{position:fixed;inset:0;z-index:150;background:var(--ink);overflow:hidden;animation:ldFail .4s 9s forwards}
-@keyframes ldFail{to{opacity:0;visibility:hidden}}
-.loader video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block}
-
 /* video lightbox */
 .vbox{position:fixed;inset:0;z-index:180;display:grid;place-items:center;padding:calc(72px + env(safe-area-inset-top,0px)) var(--gut) calc(40px + env(safe-area-inset-bottom,0px));background:rgba(10,10,12,.55);-webkit-backdrop-filter:blur(18px) saturate(.85);backdrop-filter:blur(18px) saturate(.85);opacity:0;visibility:hidden;transition:opacity .45s var(--ease),visibility 0s linear .45s}
 .vbox.on{opacity:1;visibility:visible;transition:opacity .45s var(--ease)}
@@ -191,14 +186,19 @@ html.morph .sec,html.morph .hero,html.morph .hero-name-sec{background:transparen
 .tl-row{display:flex;align-items:stretch;height:26px;margin-top:5px}
 .tl-row>b{flex:none;width:46px;font:400 9px/26px var(--f-mono);letter-spacing:.1em;opacity:.45}
 .tl-lane{position:relative;flex:1;min-width:0}
-.clip{position:absolute;top:0;bottom:0;left:var(--l);width:var(--w);display:flex;align-items:center;padding:0 8px;border-radius:3px;border:1px solid rgba(235,234,230,.24);background:rgba(235,234,230,.07);font:400 10px/1 var(--f-mono);letter-spacing:.06em;text-transform:uppercase;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;transform-origin:left center}
-.clip.hi{background:var(--signal);border-color:var(--signal);color:#fff}
+.timeline{cursor:col-resize}
+.clip{position:absolute;top:0;bottom:0;left:var(--l);width:var(--w);display:flex;align-items:center;padding:0 8px;border-radius:3px;border:1px solid rgba(235,234,230,.24);background:rgba(235,234,230,.07);font:400 10px/1 var(--f-mono);letter-spacing:.06em;text-transform:uppercase;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;transform-origin:left center;transition:background-color .25s,border-color .25s,color .25s,box-shadow .35s}
+.v2 .clip{background:rgba(59,75,255,.1);border-color:rgba(59,75,255,.42);color:var(--signal-soft)}
+.clip.on{background:var(--signal);border-color:var(--signal);color:#fff;box-shadow:0 0 0 1px var(--signal),0 10px 30px -8px rgba(59,75,255,.85)}
 .wave{position:absolute;inset:3px 0;display:flex;align-items:center;gap:2px}
-.wave i{flex:1;height:var(--h);background:rgba(235,234,230,.32);border-radius:1px}
+.wave i{flex:1;height:var(--h);background:rgba(235,234,230,.32);border-radius:1px;transition:background-color .3s}
+.wave i.lit{background:var(--signal)}
 .ph-lane{position:absolute;left:46px;right:0;top:0;bottom:0;pointer-events:none}
-.playhead{position:absolute;top:0;bottom:-4px;left:0;width:1px;background:var(--signal);animation:playhead 16s linear infinite}
+.playhead{position:absolute;top:0;bottom:-4px;left:0;width:1px;background:var(--signal);left:47%;will-change:transform}
+.js .playhead{left:0}
 .playhead::before{content:"";position:absolute;top:-1px;left:-5px;border:5px solid transparent;border-top:7px solid var(--signal)}
-@keyframes playhead{to{left:100%}}
+.ph-tc{position:absolute;top:100%;left:6px;margin-top:3px;font:500 9px/1 var(--f-mono);font-style:normal;letter-spacing:.08em;color:var(--signal-soft);white-space:nowrap}
+.playhead.flip .ph-tc{left:auto;right:6px}
 
 /* marquee */
 .marquee{overflow:hidden;padding-block:clamp(20px,2.6vw,36px);background:var(--ink);color:var(--paper);border-top:1px solid rgba(235,234,230,.12)}
@@ -232,16 +232,38 @@ html.morph .marquee{background:transparent;color:inherit}
 .frame[data-cursor]{cursor:pointer}
 
 /* qbitio */
+.qb-logo{position:relative;width:85%;margin:clamp(28px,4vw,64px) auto 0}
+.qb-mark{display:block;width:100%;height:auto;filter:invert(.92)}
+.qb-logo canvas{position:absolute;left:-8.83%;top:-60%;width:117.65%;height:220%;pointer-events:none;opacity:0}
+.qb-logo.live canvas{opacity:1}
+.qb-logo.live .qb-mark{opacity:0}
+.qb-spec{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));column-gap:var(--cg);row-gap:22px;margin-top:clamp(28px,3.4vw,52px)}
+.qb-spec>div{display:grid;gap:10px;align-content:start;padding-top:14px;border-top:1px solid rgba(235,234,230,.22)}
+.qb-spec dt{opacity:.55}
+.qb-spec dd{font-weight:500;font-size:clamp(20px,2.2vw,36px);line-height:1.05;letter-spacing:-.03em}
+.qb-spec .lead{border-top-color:var(--signal)}
+.qb-spec .lead dd{color:var(--signal-soft)}
+@media (max-width:759px){.qb-spec{grid-template-columns:1fr 1fr}}
 .qb-statement{margin-top:clamp(40px,5vw,72px);max-width:18ch}
-.qb-grid{margin-top:clamp(56px,7vw,100px);row-gap:36px;align-items:end}
-.stat{grid-column:1/7}
-.stat-n{font-weight:800;font-stretch:125%;font-size:clamp(96px,15vw,270px);line-height:.8;letter-spacing:-.05em;font-variant-numeric:tabular-nums;display:flex;align-items:flex-start}
-.stat-n sup{font-size:.42em;line-height:1;color:var(--signal);margin-left:.04em}
-.stat p{margin-top:16px}
-.owned{grid-column:8/13}
-.chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px}
-.chips li{border:1px solid rgba(235,234,230,.3);border-radius:999px;padding:8px 14px;font:400 11px/1 var(--f-mono);letter-spacing:.08em;text-transform:uppercase;transition:background .4s,border-color .4s}
-.chips li:hover{background:var(--signal);border-color:var(--signal);color:#fff}
+.qb-grid{margin-top:clamp(56px,7vw,100px);row-gap:clamp(56px,7vw,80px);align-items:start}
+.qb-head{display:flex;justify-content:space-between;gap:16px;padding-bottom:12px;border-bottom:1px solid rgba(235,234,230,.22)}
+.qb-head span:first-child{opacity:.55}
+.qb-head span:last-child{color:var(--signal-soft)}
+.stat{grid-column:1/6}
+.stat-n{display:flex;align-items:baseline;gap:.06em;margin-top:clamp(20px,2.4vw,36px);font-weight:700;font-stretch:100%;font-size:clamp(88px,11vw,200px);line-height:.82;letter-spacing:-.06em;font-variant-numeric:tabular-nums}
+.stat-u{font-weight:300;font-size:.5em;letter-spacing:-.04em;color:var(--signal)}
+.blocks{display:grid;grid-template-columns:repeat(16,minmax(0,1fr));gap:4px;margin-top:clamp(22px,2.4vw,34px)}
+.blocks i{aspect-ratio:1;border-radius:2px;background:var(--signal);transition:background-color .3s}
+html.morph .blocks i{background:rgba(235,234,230,.1)}
+html.morph .blocks i.on{background:var(--signal)}
+.stat p{margin-top:14px}
+.owned{grid-column:7/13}
+.lead-list li{position:relative;display:flex;align-items:baseline;gap:clamp(16px,2vw,32px);padding-block:clamp(12px,1.3vw,18px);border-bottom:1px solid rgba(235,234,230,.14);font-weight:400;font-size:clamp(22px,2.3vw,38px);line-height:1.1;letter-spacing:-.03em;transition:color .4s var(--ease),padding-left .6s var(--ease)}
+.lead-list li .mono{flex:none;width:2.6em;opacity:.45;transition:opacity .4s,color .4s}
+.lead-list li::after{content:"";position:absolute;left:0;bottom:-1px;height:1px;width:100%;background:var(--signal);transform:scaleX(0);transform-origin:left;transition:transform .6s var(--ease)}
+.lead-list li:hover{padding-left:clamp(8px,1vw,16px)}
+.lead-list li:hover .mono{opacity:1;color:var(--signal-soft)}
+.lead-list li:hover::after{transform:scaleX(1)}
 .qb-shots{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:var(--cg);margin-top:clamp(70px,9vw,140px)}
 .qb-shots .frame{aspect-ratio:1;width:100%}
 .qb-shots .art{inset:0}
@@ -458,15 +480,11 @@ html.morph .marquee{background:transparent;color:inherit}
 }
 @media (prefers-reduced-motion:reduce){
   *,*::before,*::after{animation:none!important;transition:none!important}
-  .loader{display:none}
 }
 </style>
 </head>
 <body>
 
-<div class="loader" id="loader" aria-hidden="true">
-  <video id="ldVideo" muted playsinline preload="auto"></video>
-</div>
 
 <div class="cursor" id="cursor" aria-hidden="true"><span id="cursorLabel"></span></div>
 <div class="vbox" id="vbox" role="dialog" aria-modal="true" aria-label="Video player" aria-hidden="true" inert>
@@ -510,7 +528,7 @@ html.morph .marquee{background:transparent;color:inherit}
         <p class="hero-who h-in">Nikhil Srinath</p>
         <div class="hero-end">
           <h1 class="hero-h" data-split="intro">I build things and tell their stories.</h1>
-          <p class="hero-sub h-in">Founder and visual storyteller, based in India.</p>
+          <p class="hero-sub h-in">Founder &amp; CEO of Qbitio. Visual storyteller, based in India.</p>
         </div>
       </div>
       <figure class="hero-photo"><img src="02.jpeg" alt="Nikhil Srinath in a navy suit against a steel shutter" width="720" height="1280" fetchpriority="high"></figure>
@@ -528,17 +546,22 @@ html.morph .marquee{background:transparent;color:inherit}
   </div>
 
   <div class="wrap">
-    <p class="sr">Startup building · Content strategy · Video editing · Motion graphics · Visual storytelling</p>
-    <div class="timeline" aria-hidden="true">
+    <p class="sr">Founder &amp; CEO of Qbitio · Startup building · Content strategy · Video editing · Visual storytelling</p>
+    <div class="timeline" id="tl" aria-hidden="true">
+      <div class="tl-row v2"><b>V2</b><div class="tl-lane">
+        <span class="clip" style="--l:2%;--w:24%">Qbitio</span>
+        <span class="clip" style="--l:35%;--w:15%">EdgeOS</span>
+        <span class="clip" style="--l:63%;--w:17%">Catalysis23</span>
+      </div></div>
       <div class="tl-row"><b>V1</b><div class="tl-lane">
-        <span class="clip" style="--l:0%;--w:19.4%">Startup building</span>
-        <span class="clip" style="--l:20%;--w:19.4%">Content strategy</span>
-        <span class="clip hi" style="--l:40%;--w:17.4%">Video editing</span>
-        <span class="clip" style="--l:58%;--w:19.4%">Motion graphics</span>
-        <span class="clip" style="--l:78%;--w:22%">Visual storytelling</span>
+        <span class="clip" style="--l:0%;--w:22.4%">Founder &amp; CEO · Qbitio</span>
+        <span class="clip" style="--l:23%;--w:18.4%">Startup building</span>
+        <span class="clip" style="--l:42%;--w:17.4%">Content strategy</span>
+        <span class="clip" style="--l:60%;--w:19.4%">Video editing</span>
+        <span class="clip" style="--l:80%;--w:20%">Visual storytelling</span>
       </div></div>
       <div class="tl-row"><b>A1</b><div class="tl-lane"><div class="wave" id="wave"></div></div></div>
-      <div class="ph-lane"><span class="playhead"></span></div>
+      <div class="ph-lane"><span class="playhead"><em class="ph-tc">00:00:28:05</em></span></div>
     </div>
   </div>
 </section>
@@ -632,19 +655,41 @@ html.morph .marquee{background:transparent;color:inherit}
 <!-- 02 QBITIO -->
 <section class="sec on-ink" id="qbitio" data-mode="ink">
   <div class="wrap">
-    <div class="sec-top mono"><span>02 — Qbitio</span><span>Electronics brand</span><span>Audience growth</span></div>
+    <div class="sec-top mono"><span>02 — Qbitio</span><span>Founder &amp; CEO</span><span>Electronics brand</span></div>
     <div class="rule"></div>
-    <h2 class="mega right" data-chars aria-label="Qbitio"><span class="line" aria-hidden="true"><span class="li">Qbitio</span></span></h2>
-    <p class="statement qb-statement" data-split><span class="dim">Building a product is one challenge.</span> Getting it <em>noticed</em> is another.</p>
+    <h2 class="sr">Qbitio</h2>
+  </div>
+
+  <div class="qb-logo" id="qbLogo" role="img" aria-label="Qbitio logo">
+    <img class="qb-mark" src="qbitio-logo-removebg-preview.png" alt="" width="1010" height="247">
+    <canvas aria-hidden="true"></canvas>
+  </div>
+
+  <div class="wrap">
+    <dl class="qb-spec fx">
+      <div class="lead"><dt class="mono">Role</dt><dd>Founder &amp; CEO</dd></div>
+      <div><dt class="mono">Company</dt><dd>Qbitio</dd></div>
+      <div><dt class="mono">Sector</dt><dd>Electronics</dd></div>
+      <div><dt class="mono">Based</dt><dd>India</dd></div>
+    </dl>
+    <p class="statement qb-statement" data-split><span class="dim">As CEO, building the product is one challenge.</span> Getting it <em>noticed</em> is another.</p>
 
     <div class="grid12 qb-grid">
       <div class="stat">
-        <div class="stat-n"><span data-count="16">16</span><sup>K+</sup></div>
-        <p class="mono muted">Instagram followers, grown through creative content</p>
+        <div class="qb-head mono"><span>Audience built</span><span>Instagram</span></div>
+        <div class="stat-n"><span data-count="16">16</span><span class="stat-u">K+</span></div>
+        <div class="blocks" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
+        <p class="mono muted">Followers, grown through creative content</p>
       </div>
       <div class="owned fx">
-        <p class="mono muted">What I owned</p>
-        <ul class="chips"><li>Video</li><li>Face of the company</li><li>Content ideation</li><li>Copywriting</li></ul>
+        <div class="qb-head mono"><span>What I lead</span><span>05</span></div>
+        <ol class="lead-list">
+          <li><span class="mono">01</span>Company direction</li>
+          <li><span class="mono">02</span>Brand &amp; growth</li>
+          <li><span class="mono">03</span>Face of the company</li>
+          <li><span class="mono">04</span>Content &amp; video</li>
+          <li><span class="mono">05</span>Copywriting</li>
+        </ol>
       </div>
     </div>
 
@@ -1078,6 +1123,46 @@ html.morph .marquee{background:transparent;color:inherit}
     wave.innerHTML = hh;
   }
 
+  /* timeline: the playhead runs the edit, lighting the clips and audio under it; hover to scrub */
+  (function(){
+    var tl = $('#tl'); if (!tl) return;
+    var lane = $('.ph-lane', tl), ph = $('.playhead', tl), tcEl = $('.ph-tc', tl), bars = $$('.wave i', tl), lit = [];
+    var clips = $$('.clip', tl).map(function(c){
+      var l = parseFloat(c.style.getPropertyValue('--l')) / 100;
+      return { el: c, a: l, b: l + parseFloat(c.style.getPropertyValue('--w')) / 100 };
+    });
+    var pos = .47, goal = null, last = 0, running = false, LOOP = 16000, SECS = 60;
+    var pad = function(n){ return (n < 10 ? '0' : '') + n; };
+    function render(){
+      ph.style.transform = 'translateX(' + (pos * lane.clientWidth) + 'px)';
+      ph.classList.toggle('flip', pos > .86);
+      clips.forEach(function(c){ c.el.classList.toggle('on', pos >= c.a && pos < c.b); });
+      lit.forEach(function(b){ b.classList.remove('lit'); });
+      var k = Math.round(pos * (bars.length - 1));
+      lit = bars.slice(Math.max(0, k - 2), k + 3);
+      lit.forEach(function(b){ b.classList.add('lit'); });
+      var f = Math.floor(pos * SECS * 24);
+      tcEl.textContent = '00:00:' + pad(Math.floor(f / 24)) + ':' + pad(f % 24);
+    }
+    function tick(t){
+      if (!running) { last = 0; return; }
+      var dt = last ? Math.min(t - last, 64) : 0; last = t;
+      if (goal != null) pos += (goal - pos) * .2;
+      else pos = (pos + dt / LOOP) % 1;
+      render();
+      requestAnimationFrame(tick);
+    }
+    render();
+    if (reduce) return;
+    tl.addEventListener('pointermove', function(e){ var r = lane.getBoundingClientRect(); goal = Math.min(.999, Math.max(0, (e.clientX - r.left) / r.width)); });
+    tl.addEventListener('pointerleave', function(){ goal = null; });
+    new IntersectionObserver(function(en){
+      var v = en[0].isIntersecting;
+      if (v && !running) { running = true; requestAnimationFrame(tick); }
+      running = v;
+    }).observe(tl);
+  })();
+
   /* splitting */
   function splitWords(el){
     (function walk(node){
@@ -1188,7 +1273,6 @@ html.morph .marquee{background:transparent;color:inherit}
   fontsReady.then(function(){ fit(); $$('[data-gen="lens"] canvas.gen').forEach(function(cv){ cv.width = 0; }); paintAll(); });
 
   if (!anim) {
-    var ld = $('#loader'); if (ld) ld.remove();
     fit(); runHooks();
     return;
   }
@@ -1210,26 +1294,12 @@ html.morph .marquee{background:transparent;color:inherit}
   $$('[data-chars] .li, .hero-name .li').forEach(splitChars);
   fit();
 
-  var loader = $('#loader'), ldVideo = $('#ldVideo');
-  loader.style.animation = 'none';
-  /* pick the loader cut that matches the screen ratio: desktop 16:9, tablet 3:4, phone 9:16 */
-  var ar = innerWidth / innerHeight;
-  var ldSrc = ar >= 1.2 ? 'loader/Nikhil_Srinath_16x9.mp4' : (ar >= .62 ? 'loader/Nikhil_Srinath_3x4.mp4' : 'loader/Nikhil_Srinath_9x16.mp4');
-  var LD_RATE = 10 / 6; /* 10s clip plays in 6s */
-  ldVideo.src = ldSrc; ldVideo.defaultPlaybackRate = LD_RATE; ldVideo.playbackRate = LD_RATE;
-  ldVideo.addEventListener('loadedmetadata', function(){ ldVideo.playbackRate = LD_RATE; });
-  ldVideo.addEventListener('playing', function(){ if (ldVideo.playbackRate !== LD_RATE) ldVideo.playbackRate = LD_RATE; });
-  ldVideo.addEventListener('ended', function(){ Promise.race([fontsReady, sleep(300)]).then(intro); });
-  ldVideo.addEventListener('error', function(){ setTimeout(intro, 300); });
-  ldVideo.play().catch(function(){ setTimeout(intro, 600); });
-  setTimeout(intro, 9000);
+  Promise.race([fontsReady, sleep(300)]).then(intro);
 
   function intro(){
-    if (loader._go) return; loader._go = true;
     fit(); paintAll(); ST.refresh();
     var tl = G.timeline();
-    tl.to(loader, { yPercent: -100, duration: 1.1, ease: 'expo.inOut', onComplete: function(){ loader.remove(); } })
-      .from('.hero-photo', { clipPath: 'inset(100% 0 0 0)', duration: 1.4, ease: 'expo.inOut' }, '-=.7')
+    tl.from('.hero-photo', { clipPath: 'inset(100% 0 0 0)', duration: 1.4, ease: 'expo.inOut' })
       .from('.hero-photo img', { scale: 1.25, duration: 1.8, ease: 'expo.out' }, '<')
       .from('.hero-h .wi', { yPercent: 115, duration: 1.1, ease: 'expo.out', stagger: .03 }, '-=1.1')
       .from('.h-in', { y: 20, opacity: 0, duration: 1, ease: 'expo.out', stagger: .07 }, '-=.95');
@@ -1280,9 +1350,72 @@ html.morph .marquee{background:transparent;color:inherit}
     G.fromTo(p, { strokeDasharray: L, strokeDashoffset: L }, { strokeDashoffset: 0, duration: 1.5, ease: 'power2.inOut', delay: .35, scrollTrigger: { trigger: p.closest('.circ'), start: 'top 82%' } });
   });
   $$('[data-count]').forEach(function(el){
-    var end = +el.getAttribute('data-count'), o = { v: 0 }; el.textContent = '0';
-    G.to(o, { v: end, duration: 2.2, ease: 'power3.out', scrollTrigger: { trigger: el, start: 'top 88%' }, onUpdate: function(){ el.textContent = Math.round(o.v); } });
+    var end = +el.getAttribute('data-count'), o = { v: 0 }, sc = el.closest('.stat'), blk = sc ? $$('.blocks i', sc) : []; el.textContent = '0';
+    G.to(o, { v: end, duration: 2.2, ease: 'power3.out', scrollTrigger: { trigger: el, start: 'top 88%' }, onUpdate: function(){ var n = Math.round(o.v); el.textContent = n; blk.forEach(function(b, j){ b.classList.toggle('on', j < n); }); } });
   });
+
+  /* qbitio logo: pixels fly in and lock into the mark as you scroll; the pointer knocks them loose */
+  (function(){
+    var box = $('#qbLogo'); if (!box) return;
+    var cv = $('canvas', box), cx = cv.getContext('2d'), src = new Image();
+    var pts = [], W = 0, CW = 0, lx = 0, CH = 0, top = 0, cell = 0, dpr = 1, st = { p: 0 }, mx = -1e4, my = -1e4, hot = false, inView = false, raf = 0;
+    var PAPER = '#ebebeb', SIG = '#3b4bff';
+    function build(){
+      var cols = innerWidth < 760 ? 110 : 170, rows = Math.round(cols * src.naturalHeight / src.naturalWidth);
+      var oc = document.createElement('canvas'); oc.width = cols; oc.height = rows;
+      var o = oc.getContext('2d'), d, r = rng(23);
+      o.drawImage(src, 0, 0, cols, rows);
+      try { d = o.getImageData(0, 0, cols, rows).data; } catch(e) { return false; } /* tainted (file://): keep the static mark */
+      pts = [];
+      for (var y = 0; y < rows; y++) for (var x = 0; x < cols; x++) {
+        if (d[(y * cols + x) * 4 + 3] < 110) continue;
+        var a = r() * 6.2832, s = .25 + r() * .75;
+        pts.push({ x: x, y: y, ox: Math.cos(a) * s, oy: Math.sin(a) * s, dl: x / cols * .35 + r() * .25, b: r() < .16, dx: 0, dy: 0, vx: 0, vy: 0 });
+      }
+      W = box.clientWidth; CW = cv.clientWidth; lx = (CW - W) / 2; cell = W / cols; top = box.clientHeight * .6; CH = box.clientHeight * 2.2;
+      dpr = Math.min(devicePixelRatio || 1, 2);
+      cv.width = Math.round(CW * dpr); cv.height = Math.round(CH * dpr);
+      return true;
+    }
+    function draw(){
+      raf = 0;
+      var p = st.p, busy = p < 1, R = cell * 10, sx = W * .55, sy = CH * .45, col = '';
+      cx.setTransform(dpr, 0, 0, dpr, 0, 0); cx.clearRect(0, 0, CW, CH);
+      for (var i = 0; i < pts.length; i++) {
+        var q = pts[i], t = Math.min(1, Math.max(0, (p - q.dl) / .4)), e = 1 - Math.pow(1 - t, 3);
+        if (e <= 0) continue;
+        var tx = lx + q.x * cell, ty = top + q.y * cell;
+        if (hot) {
+          var ax = tx + q.dx - mx, ay = ty + q.dy - my, dd = ax * ax + ay * ay;
+          if (dd < R * R) { var dist = Math.sqrt(dd) || 1, f = (1 - dist / R) * 2.4; q.vx += ax / dist * f; q.vy += ay / dist * f; }
+        }
+        q.vx = (q.vx - q.dx * .055) * .86; q.vy = (q.vy - q.dy * .055) * .86; q.dx += q.vx; q.dy += q.vy;
+        var off = Math.abs(q.dx) + Math.abs(q.dy);
+        if (off > .25) busy = true; else { q.dx = q.dy = q.vx = q.vy = 0; }
+        var c = (q.b && t < 1) || off > cell * 1.2 ? SIG : PAPER;
+        if (c !== col) { cx.fillStyle = col = c; }
+        cx.globalAlpha = e;
+        cx.fillRect(tx + q.ox * sx * (1 - e) + q.dx, ty + q.oy * sy * (1 - e) + q.dy, cell + 1, cell + 1);
+      }
+      cx.globalAlpha = 1;
+      box.classList.toggle('live', busy || hot);
+      if ((busy || hot) && inView) raf = requestAnimationFrame(draw);
+    }
+    function kick(){ if (!raf && inView) raf = requestAnimationFrame(draw); }
+    function start(){
+      if (!build()) return;
+      box.classList.add('live');
+      G.to(st, { p: 1, ease: 'none', onUpdate: kick, scrollTrigger: { trigger: box, start: 'top 95%', end: 'center 45%', scrub: .8 } });
+      new IntersectionObserver(function(en){ inView = en[0].isIntersecting; kick(); }, { rootMargin: '25% 0px' }).observe(box);
+      var rt; addEventListener('resize', function(){ clearTimeout(rt); rt = setTimeout(function(){ build(); kick(); }, 220); });
+      if (fine) {
+        box.addEventListener('pointermove', function(e){ var b = cv.getBoundingClientRect(); mx = e.clientX - b.left; my = e.clientY - b.top; hot = true; kick(); });
+        box.addEventListener('pointerleave', function(){ hot = false; mx = my = -1e4; kick(); });
+      }
+    }
+    src.onload = start;
+    src.src = $('.qb-mark', box).getAttribute('src');
+  })();
 
   var mq = G.to('.mq-track', { xPercent: -50, repeat: -1, duration: 26, ease: 'none' });
   var mqGroup = $('.mq-g'); mqGroup.parentNode.appendChild(mqGroup.cloneNode(true));
@@ -1308,7 +1441,7 @@ html.morph .marquee{background:transparent;color:inherit}
   addEventListener('pointermove', function(e){ cx(e.clientX); cy(e.clientY); }, { passive: true });
   document.addEventListener('pointerover', function(e){
     var l = null; /* no PLAY / VIEW label bubble over media */
-    var a = e.target.closest('a, button, .row, .ep, .chips li');
+    var a = e.target.closest('a, button, .row, .ep, .lead-list li');
     cur.classList.toggle('is-label', !!l);
     cur.classList.toggle('is-link', !l && !!a);
     curLabel.textContent = l ? l.getAttribute('data-cursor') : '';
